@@ -1,7 +1,5 @@
---[[ For conky variables and commands use the terminal command:
-
+--[[ 
  man conky
- 
 ]]
 
 conky.config = {
@@ -13,7 +11,7 @@ conky.config = {
 	own_window_hints = 'undecorated,below,skip_taskbar,skip_pager,sticky',
 	own_window_colour = '000000',
 	own_window_class = 'Conky',
-	own_window_title = 'Default Conky',
+	own_window_title = 'Bunsen Labs Default Conky',
 
 	own_window_argb_visual = true,
 	own_window_argb_value = 150,
@@ -21,7 +19,7 @@ conky.config = {
 	minimum_width = 200, minimum_height = 0,-- w|h
 	maximum_width = 200,
 
-	gap_x = 20,-- l|r
+	gap_x = 20,-- r|r
 	gap_y = 45,-- u|d
 
 	alignment = 'top_right',
@@ -88,6 +86,12 @@ conky.config = {
 
 --  End Miscellaneous Section
 
+-- 	Analog Clockworks
+	lua_load = '$HOME/.config/conky/LUA/clock-dots-grey.lua',
+	lua_draw_hook_pre = 'draw_clock',
+
+-- 	End Analog Clockwors Section
+
 	update_interval = 1,
 	total_run_times = 0,
 
@@ -100,6 +104,14 @@ Host:${alignr}${nodename}
 Uptime:${alignr}${uptime}
 UTC:${alignr}${utime %H:%M:%S%P}
  
+${color}${alignc}NAMESPACE
+${hr}
+${color}${goto 105}
+${alignc}${time %b %d %Y}${color}
+${alignc}${color}${time %X}
+${goto 28}${color}SU MO TU WE TH FR SA
+${goto 28}${color1}${execpi 1800 LAR=`date +%-d`; ncal -bh | sed '2d' | sed -e '1d' -e 's/\<'$LAR'\>/${color1}&${color}/' | sed ':a;N;$!ba;s/\n/\n${goto 28}/g'}${color}${font} 
+
 ${color}${alignc}M.E.M
 ${hr}
 ${color}${goto 50}${memperc}% ${alignr}${mem}/${memmax}
@@ -109,11 +121,10 @@ SWAP ${goto 50}${swapbar}
 
 ${color}${alignc}>T<
 ${hr}
-${color}${goto 50}${alignr}${fs_used /}/${fs_size /}
-Root ${color}${goto 50}${fs_bar}
-${color}${goto 80}${alignr}${fs_used /home}/${fs_size /home}
-Home${color}${goto 50}${fs_bar /home}
-
+${color}${goto 50}${alignr}${fs_used /media/sda1}/${fs_size /media/sda1}
+ROOT ${color}${goto 50}${fs_bar}
+${color}${goto 80}${alignr}${fs_used /home/user/}/${fs_size /home/user/}
+K@ban${color}${goto 50}${fs_bar /home/user}
 ${color}${alignr}${hddtemp /dev/sda}°C
 
 ${alignc}a
@@ -124,26 +135,23 @@ a2: ${color}${goto 30}${cpubar cpu3} ${alignr}${cpu cpu2}%
 a1: ${color}${goto 30}${cpubar cpu2} ${alignr}${cpu cpu1}%
 a0: ${color}${goto 30}${cpubar cpu1} ${alignr}${cpu cpu0}% 
 ${color}${goto 105}.${alignr}${freq_g}GHz
- 
- 
+  
 ${color}${alignc}p
 ${hr}
-
 ${color}${downspeed wlp36s0b1}${alignr}${totaldown wlp36s0b1}
 ${color}${downspeedgraph wlp36s0b1 20,193 68364B -l}
 ${color}${upspeed wlp36s0b1}${alignr}${totalup wlp36s0b1}
 ${color}${upspeedgraph wlp36s0b1 20,193 68364B -l}
-${color}${goto 80}p1: ${addr wlp36s0b1}
-
-
+${color}${goto 80}w1: ${addr wlp36s0b1}
 
 ${color}${downspeed enp0s25}${alignr}${totaldown enp0s25}
 ${color}${downspeedgraph enp0s25 20,193 68364B -l}
 ${color}${upspeed enp0s25}${alignr}${totalup enp0s25}
 ${color}${upspeedgraph enp0s25 20,193 68364B -l}
-${color}${goto 80}p1: ${addr enp0s25}
+${color}${goto 80}l1: ${addr enp0s25}
 
-
-${color}${goto 105}.
-
+${image $HOME/.config/conky/images/bl-flame-ellipses-grey.png}
+${voffset 197}${alignr}${time %d}
+${alignc}${time %B}
+${alignc}${time %A}
 ]];
